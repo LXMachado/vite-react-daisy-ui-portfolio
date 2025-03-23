@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 const projects = [
   {
     name: "Tinnie House Records",
-    profile: "/public/images/logo/Tinnie House Records.png",
+    profile: "/images/logo/Tinnie House Records.png",
     position: "Next.js 14, React 18, Tailwind CSS, Soundcloud API and Widget",
     githubLink: "https://github.com/LXMachado/tinnie-house-records"
   },
@@ -22,13 +22,13 @@ const projects = [
   },
   {
     name: "tRPC Job Management System",
-    profile: "/public/images/logo/tRPC.png",
+    profile: "/images/logo/tRPC.png",
     position: "Remix, Prisma, Typescript, React, ZenStack, Aint Design, PostgreSQL",
     githubLink: "https://github.com/LXMachado/ynK0sI-acab"
   },
   {
     name: "MERN E-Commerce",
-    profile: "/public/images/logo/MERN.png",
+    profile: "/images/logo/MERN.png",
     position: "MongoDB, Express, React, Node.js, Chakra UI, Vite",
     githubLink: "https://github.com/LXMachado/vite-chakra-mern-e-commerce"
   },
