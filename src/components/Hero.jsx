@@ -67,7 +67,6 @@ const Hero = () => {
           >
             {isClient && (
               <motion.img
-                className="mask mask-decagon w-80 h-80"
                 src="/images/img/AM.png"
                 alt="Profile"
                 loading="lazy"

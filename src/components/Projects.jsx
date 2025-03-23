@@ -3,6 +3,12 @@ import { motion } from "framer-motion"
 
 const projects = [
   {
+    name: "Tinnie House Records",
+    profile: "/public/images/logo/Tinnie House Records.png",
+    position: "Next.js 14, React 18, Tailwind CSS, Soundcloud API and Widget",
+    githubLink: "https://github.com/LXMachado/tinnie-house-records"
+  },
+  {
     name: "Holistic Health Landing Page",
     profile: "/images/logo/holisticHealth.png",
     position: "React-Vite, Daisy UI, Express, Node.js",
@@ -15,28 +21,22 @@ const projects = [
     githubLink: "https://github.com/LXMachado/e-commerce-REST-API"
   },
   {
-    name: "Reddish",
-    profile: "/images/logo/reddit.svg",
-    position: "React, Reddit API, MUI",
-    githubLink: "https://github.com/LXMachado/Reddit-client"
+    name: "tRPC Job Management System",
+    profile: "/public/images/logo/tRPC.png",
+    position: "Remix, Prisma, Typescript, React, ZenStack, Aint Design, PostgreSQL",
+    githubLink: "https://github.com/LXMachado/ynK0sI-acab"
   },
   {
-    name: "Jamming",
-    profile: "/images/logo/Spotify.svg",
-    position: "Spotify API, React, Redux, CSS Modules",
-    githubLink: "https://github.com/LXMachado/jamming"
+    name: "MERN E-Commerce",
+    profile: "/public/images/logo/MERN.png",
+    position: "MongoDB, Express, React, Node.js, Chakra UI, Vite",
+    githubLink: "https://github.com/LXMachado/vite-chakra-mern-e-commerce"
   },
   {
     name: "Responsive Portfolio Website",
-     profile: "/images/logo/Portfolio.svg",
+     profile: "/images/logo/Portfolio.png",
     position: "Javascript, HTML, CSS, boxicons, scrollreveal",
     githubLink: "https://github.com/LXMachado/Alexandre-s-Portfolio-Website"
-  },
-  {
-    name: "Role Playing Game",
-    profile: "/images/logo/monster.svg",
-    position: "Javascript, HTML, CSS",
-    githubLink: "https://github.com/LXMachado/role-playing-game"
   },
 ]
 
