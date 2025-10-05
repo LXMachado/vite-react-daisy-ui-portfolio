@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
+import { useTheme } from "react-hook-theme"
 
 const navigation = [
   { name: "Home", href: "#hero" },
@@ -7,10 +8,32 @@ const navigation = [
   { name: "Contact", href: "#contact" },
 ]
 
+const THEMES = {
+  dark: "dark",
+  light: "light",
+}
+
 const NavBar = () => {
   const [active, setActive] = useState("Home")
   const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef(null)
+  const { theme, setTheme } = useTheme()
+
+  const isDark = theme === THEMES.dark
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (isDark) {
+      root.classList.add("dark")
+    } else {
+      root.classList.remove("dark")
+    }
+  }, [isDark])
+
+  const handleThemeChange = (event) => {
+    const nextIsDark = event.target.checked
+    setTheme(nextIsDark ? THEMES.dark : THEMES.light)
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,28 +93,76 @@ const NavBar = () => {
             </a>
           ))}
         </div>
-        <button
-          type="button"
-          className="nav-toggle lg:hidden"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-label="Toggle navigation"
-          aria-expanded={menuOpen}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
+        <div className="flex items-center gap-2">
+          <label className={`theme-toggle ${isDark ? 'is-dark' : ''}`}>
+            <input
+              type="checkbox"
+              className="theme-toggle-input"
+              onChange={handleThemeChange}
+              checked={isDark}
+              aria-label={isDark ? "Activate light theme" : "Activate dark theme"}
+            />
+            <span aria-hidden="true" className="theme-toggle-visual">
+              {isDark ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="theme-toggle-icon"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 3.75a8.25 8.25 0 1 0 8.25 8.25c0-.28-.015-.557-.044-.832A6 6 0 0 1 12 3.75Z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="theme-toggle-icon"
+                >
+                  <circle cx="12" cy="12" r="4" />
+                  <path strokeLinecap="round" d="M12 3v2" />
+                  <path strokeLinecap="round" d="M12 19v2" />
+                  <path strokeLinecap="round" d="m5.64 5.64 1.42 1.42" />
+                  <path strokeLinecap="round" d="m16.94 16.94 1.42 1.42" />
+                  <path strokeLinecap="round" d="M3 12h2" />
+                  <path strokeLinecap="round" d="M19 12h2" />
+                  <path strokeLinecap="round" d="m5.64 18.36 1.42-1.42" />
+                  <path strokeLinecap="round" d="m16.94 7.06 1.42-1.42" />
+                </svg>
+              )}
+            </span>
+          </label>
+          <button
+            type="button"
+            className="nav-toggle lg:hidden"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label="Toggle navigation"
+            aria-expanded={menuOpen}
           >
-            {menuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="h-5 w-5"
+            >
+              {menuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </nav>
       {menuOpen && (
         <div className="mobile-menu lg:hidden">

@@ -7,6 +7,7 @@ A modern and responsive portfolio website built using Vite, React, Tailwind CSS,
 ## Table of Contents
 
 - [Features](#features)
+- [Theme Modes](#theme-modes)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
@@ -23,6 +24,15 @@ A modern and responsive portfolio website built using Vite, React, Tailwind CSS,
 - **SEO Optimized**: Meta tags and structure optimized for search engines.
 - **Custom Components**: Reusable and customizable React components.
 - **Fast Loading**: Built with Vite for lightning-fast development and production builds.
+
+### Theme Modes
+
+The Tailwind-driven design tokens support two named themes that are referenced throughout the UI:
+
+- `dark` – the high-contrast midnight palette showcased in the redesigned layout.
+- `light` – a softer variant tuned for daylight viewing while preserving the same design tokens.
+
+The current selection is stored in `localStorage` (via `react-hook-theme`) so the choice persists across reloads and sessions.
 
 ## Technologies
 
