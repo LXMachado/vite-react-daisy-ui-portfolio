@@ -1,8 +1,8 @@
-# Vite React Daisy UI Framer Motion Portfolio
+# Vite React Tailwind Framer Motion Portfolio
 
 ![Project Preview](/public/images/screen/portfolio_alexandremachado.jpeg)
 
-A modern and responsive portfolio website built using Vite, React, DaisyUI, and Framer Motion. This project showcases my latest work and provides a platform to demonstrate my skills in full-stack web development.
+A modern and responsive portfolio website built using Vite, React, Tailwind CSS, and Framer Motion. This project showcases my latest work and provides a platform to demonstrate my skills in full-stack web development.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ A modern and responsive portfolio website built using Vite, React, DaisyUI, and 
 
 - **Responsive Design**: Works seamlessly on desktops, tablets, and mobile devices.
 - **Interactive Animations**: Utilizes Framer Motion for smooth and engaging animations.
-- **Dark Mode Support**: Includes light and dark themes using DaisyUI.
+- **Dark Mode Ready**: Built atop a custom Tailwind design system that can easily support light and dark themes.
 - **SEO Optimized**: Meta tags and structure optimized for search engines.
 - **Custom Components**: Reusable and customizable React components.
 - **Fast Loading**: Built with Vite for lightning-fast development and production builds.
@@ -28,7 +28,7 @@ A modern and responsive portfolio website built using Vite, React, DaisyUI, and 
 
 - **[React](https://reactjs.org/)**: A JavaScript library for building user interfaces.
 - **[Vite](https://vitejs.dev/)**: A fast build tool and development server.
-- **[DaisyUI](https://daisyui.com/)**: A utility-first CSS framework based on Tailwind CSS.
+- **Custom Tailwind Design System**: A handcrafted set of tokens and components built with Tailwind CSS.
 - **[Framer Motion](https://www.framer.com/motion/)**: A powerful library for animations in React.
 - **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for styling.
 
