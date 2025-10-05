@@ -53,74 +53,82 @@ const Hero = () => {
   }
 
   return (
-    <motion.div
-      className="min-h-screen relative"
+    <motion.section
+      className="relative isolate overflow-hidden px-6 py-24 sm:px-10 sm:py-32"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
+      id="hero"
     >
-      <div className="hero min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse items-center justify-between w-full max-w-7xl">
-          <motion.div 
-            className="lg:w-1/2 flex justify-center"
-            variants={imageVariants}
-          >
-            {isClient && (
-              <motion.img
-                src="/images/img/AM.png"
-                alt="Profile"
-                loading="lazy"
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05, rotateY: 10 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              />
-            )}
-          </motion.div>
-          <motion.div 
-            className="lg:w-1/2 text-left"
+      <div className="absolute inset-0 -z-10 bg-noise bg-[length:120px_120px] opacity-30"></div>
+      <div className="absolute inset-x-0 -top-20 -z-20 h-72 blur-3xl" aria-hidden="true">
+        <div className="mx-auto h-full max-w-3xl animate-gradient-pan rounded-full bg-gradient-to-br from-accent/40 via-highlight/40 to-amberglow/40 opacity-70"></div>
+      </div>
+      <div className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col items-center gap-12 lg:flex-row-reverse lg:gap-24">
+        <motion.div
+          className="relative flex w-full max-w-sm justify-center lg:max-w-none"
+          variants={imageVariants}
+        >
+          {isClient && (
+            <motion.img
+              src="/images/img/AM.png"
+              alt="Profile"
+              loading="lazy"
+              className="hero-portrait"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05, rotateY: 10 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+            />
+          )}
+          <span className="hero-portrait-ring" aria-hidden="true" />
+        </motion.div>
+        <motion.div
+          className="w-full max-w-2xl space-y-6 text-left"
+          variants={itemVariants}
+        >
+          <motion.span className="hero-kicker" variants={itemVariants}>
+            Full-stack developer & product-minded engineer
+          </motion.span>
+          <motion.h1
+            className="text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl"
             variants={itemVariants}
           >
-            <motion.h1 
-              className="text-5xl font-bold mb-4 font-SUSE"
+            Hello! I'm Alexandre,
+          </motion.h1>
+          <motion.p
+            className="max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg"
+            variants={itemVariants}
+          >
+            a full-stack web developer specializing in modern, responsive websites and applications. With a strong foundation in
+            JavaScript, React, Node.js, and Express, I bring a hands-on approach to delivering seamless digital experiences. Whether it's building from the ground up or enhancing existing projects, I'm here to help you achieve your goals with clean, efficient code and a commitment to quality.
+          </motion.p>
+          <motion.div
+            className="flex flex-wrap gap-4"
+            variants={itemVariants}
+          >
+            <motion.button
+              className="button-primary"
               variants={itemVariants}
+              whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+              onClick={scrollToContact}
             >
-              Hello! I'm Alexandre,
-            </motion.h1>
-            <motion.p 
-              className="mb-6 max-w-md font-SUSE"
+              Let's Talk
+            </motion.button>
+            <motion.a
+              href="https://docs.google.com/document/d/1j0EnYcWyKMXBfziO7Z2yv-8NPur2GTBrzO2n0O_C2DM/edit?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button-secondary"
               variants={itemVariants}
+              whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
             >
-              a full-stack web developer specializing in modern, responsive websites and applications. 
-              With a strong foundation in JavaScript, React, Node.js, and Express, I bring a hands-on approach to delivering seamless digital experiences. Whether it's building from the ground up or enhancing existing projects, I'm here to help you achieve your goals with clean, efficient code and a commitment to quality.
-            </motion.p>
-            <motion.div 
-              className="flex space-x-4"
-              variants={itemVariants}
-            >
-              <motion.button 
-                className="btn btn-neutral"
-                variants={itemVariants}
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                onClick={scrollToContact}
-              >
-                Let's Talk
-              </motion.button>
-              <motion.a 
-                href="https://docs.google.com/document/d/1j0EnYcWyKMXBfziO7Z2yv-8NPur2GTBrzO2n0O_C2DM/edit?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
-                variants={itemVariants}
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              >
-                Download my CV
-              </motion.a>
-            </motion.div>
+              Download my CV
+            </motion.a>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 

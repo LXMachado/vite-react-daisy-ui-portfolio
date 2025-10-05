@@ -1,4 +1,155 @@
-@import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=SUSE:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    background-color: theme('colors.canvas');
+  }
+
+  body {
+    @apply min-h-screen bg-canvas text-ink antialiased font-SUSE;
+    background-image:
+      linear-gradient(135deg, rgba(56, 189, 248, 0.12), transparent 45%),
+      radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.15), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.18), transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(251, 191, 36, 0.15), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-accent/40 text-ink;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply relative px-4 py-16 sm:px-8 lg:px-16;
+  }
+
+  .section-header {
+    @apply mx-auto max-w-3xl text-center;
+  }
+
+  .section-title {
+    @apply text-3xl font-semibold text-ink sm:text-4xl lg:text-5xl;
+  }
+
+  .section-subtitle {
+    @apply mt-4 text-sm text-ink-muted sm:text-base;
+  }
+
+  .nav-shell {
+    @apply relative flex w-full max-w-5xl items-center justify-between rounded-full border border-surface-border bg-surface/80 px-5 py-3 shadow-inner-glow backdrop-blur-lg transition duration-300;
+  }
+
+  .nav-logo {
+    @apply h-12 w-12 rounded-3xl border border-surface-border object-cover shadow-inner-glow;
+  }
+
+  .nav-toggle {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-surface-border bg-transparent text-ink transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60;
+  }
+
+  .nav-link {
+    @apply relative inline-flex items-center rounded-full px-5 py-2 text-sm font-medium text-ink/80 transition hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60;
+  }
+
+  .nav-link.is-active {
+    @apply bg-accent/15 text-ink shadow-glow;
+  }
+
+  .mobile-menu {
+    @apply absolute left-1/2 top-full z-40 mt-4 flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 flex-col gap-2 rounded-3xl border border-surface-border bg-surface/95 p-4 shadow-glow backdrop-blur-xl;
+  }
+
+  .mobile-link {
+    @apply block rounded-2xl px-4 py-3 text-base font-medium text-ink/80 transition hover:bg-accent/10 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60;
+  }
+
+  .mobile-link.is-active {
+    @apply bg-accent/15 text-ink;
+  }
+
+  .button-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent via-highlight to-accent px-6 py-3 text-sm font-semibold text-canvas shadow-glow transition hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center gap-2 rounded-full border border-surface-border bg-transparent px-6 py-3 text-sm font-semibold text-ink transition hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60;
+  }
+
+  .surface {
+    @apply rounded-4xl border border-surface-border bg-surface/80 p-8 shadow-inner-glow backdrop-blur transition duration-300;
+  }
+
+  .hero-kicker {
+    @apply inline-flex items-center rounded-full border border-surface-border bg-surface-elevated/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-ink-muted;
+  }
+
+  .hero-portrait {
+    @apply h-72 w-72 rounded-[3rem] border border-surface-border object-cover shadow-glow lg:h-[22rem] lg:w-[22rem];
+  }
+
+  .hero-portrait-ring {
+    @apply pointer-events-none absolute inset-0 -z-10 rounded-[3rem] border border-accent/10 animate-pulse-ring;
+  }
+
+  .service-card {
+    @apply surface flex h-full cursor-pointer flex-col justify-between gap-6 border border-surface-border/80 transition hover:border-accent/60 hover:shadow-glow;
+  }
+
+  .service-icon {
+    @apply flex h-14 w-14 items-center justify-center rounded-2xl border border-surface-border bg-surface-elevated/80 text-accent shadow-inner-glow transition duration-300 group-hover:border-accent/40 group-hover:text-accent;
+  }
+
+  .service-cta {
+    @apply inline-flex items-center text-sm font-semibold text-accent transition-transform duration-300 group-hover:translate-x-1;
+  }
+
+  .project-card {
+    @apply surface flex h-full flex-col items-center gap-6 text-center transition hover:-translate-y-1;
+  }
+
+  .project-image-ring {
+    @apply relative flex h-32 w-32 items-center justify-center rounded-full border border-surface-border bg-surface-elevated/80 shadow-inner-glow;
+  }
+
+  .project-avatar {
+    @apply h-24 w-24 rounded-full border border-surface-border object-cover shadow-glow;
+  }
+
+  .form-label {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-[0.3em] text-ink-muted;
+  }
+
+  .form-input {
+    @apply w-full rounded-3xl border border-surface-border bg-surface-elevated/60 px-5 py-3 text-sm text-ink placeholder:text-ink-muted transition focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/60;
+  }
+
+  .form-textarea {
+    @apply min-h-[160px] w-full resize-none rounded-3xl border border-surface-border bg-surface-elevated/60 px-5 py-4 text-sm text-ink placeholder:text-ink-muted transition focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/60;
+  }
+
+  .social-link {
+    @apply inline-flex h-12 w-12 items-center justify-center rounded-full border border-surface-border bg-transparent text-ink transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60;
+  }
+
+  .contact-detail {
+    @apply flex items-center gap-4 text-sm text-ink;
+  }
+
+  .contact-icon {
+    @apply flex h-12 w-12 items-center justify-center rounded-2xl border border-surface-border bg-surface-elevated/80 text-accent;
+  }
+
+  .contact-text {
+    @apply text-base text-ink sm:text-lg;
+  }
+}

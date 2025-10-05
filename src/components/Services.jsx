@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import React, { useState } from "react"
 
 const services = [
   {
@@ -42,18 +41,7 @@ const services = [
 
 
 const Services = () => {
-  const shouldReduceMotion = useReducedMotion()
   const [visibleServices, setVisibleServices] = useState(3)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkIfMobile()
-    window.addEventListener('resize', checkIfMobile)
-    return () => window.removeEventListener('resize', checkIfMobile)
-  }, [])
 
   const handleServiceClick = () => {
     const contactSection = document.getElementById('contact')
@@ -67,34 +55,34 @@ const Services = () => {
   }
 
   return (
-    <section id="services" className="mt-4 md:mt-10 px-4 md:px-8">
-      <h2 className="font-SUSE text-center text-2xl font-semibold md:text-5xl mb-2 md:mb-4">
-        Services
-      </h2>
-      <p className="text-md font-SUSE text-center mb-6 md:mb-8">
-        My comprehensive range of services
-      </p>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <section id="services" className="section-shell">
+      <div className="section-header">
+        <h2 className="section-title">Services</h2>
+        <p className="section-subtitle">My comprehensive range of services</p>
+      </div>
+      <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
         {services.slice(0, visibleServices).map((item, index) => (
           <div
             key={index}
-            className="card bg-base-100 shadow-sm hover:shadow-md transition-shadow duration-300"
-            onClick={handleServiceClick}>
-            <div className="card-body">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 rounded-full bg-base-200 flex items-center justify-center mr-4">
-                  <img className="w-8 h-8" src={item.icon} alt={item.name} loading="lazy" />
-                </div>
-                <h3 className="font-SUSE card-title text-xl font-bold">{item.name}</h3>
+            className="service-card group"
+            onClick={handleServiceClick}
+          >
+            <div className="flex items-start gap-4">
+              <span className="service-icon">
+                <img className="h-8 w-8 object-contain" src={item.icon} alt={item.name} loading="lazy" />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-ink sm:text-xl">{item.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted sm:text-base">{item.description}</p>
               </div>
-              <p className="text-sm font-SUSE opacity-70">{item.description}</p>
             </div>
+            <span className="service-cta">Discuss this service →</span>
           </div>
         ))}
       </div>
       {visibleServices < services.length && (
-        <div className="text-center mt-6">
-          <button onClick={loadMore} className="btn btn-outline px-6 py-3 text-sm font-medium capitalize font-SUSE">
+        <div className="mt-8 flex justify-center">
+          <button onClick={loadMore} className="button-secondary">
             Load More
           </button>
         </div>
