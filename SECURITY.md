@@ -27,7 +27,7 @@ This portfolio includes enterprise-level security features for the contact form 
 4. **Input Sanitization**: All data is cleaned before processing
 5. **Error Handling**: Secure error messages that don't leak sensitive information
 
-## 🚀 Features
+## Features
 
 - **Real-time Feedback**: Users get immediate validation feedback
 - **Professional UX**: Loading states, success confirmations, and clear error messages
