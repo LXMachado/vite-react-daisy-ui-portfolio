@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useMemo } from "react"
-import { Canvas, useFrame } from "@react-three/fiber"
+import React, { Suspense, useEffect } from "react"
+import { Canvas, useFrame, useLoader } from "@react-three/fiber"
 import * as THREE from "three"
 
 class CanvasErrorBoundary extends React.Component {
@@ -31,29 +31,26 @@ class CanvasErrorBoundary extends React.Component {
   }
 }
 
-const WireframeOrb = ({ reduceMotion }) => {
+const LogoBillboard = ({ reduceMotion }) => {
   const groupRef = React.useRef()
+  const materialRef = React.useRef()
   const isHovered = React.useRef(false)
-  const edgesGeometry = useMemo(() => {
-    const base = new THREE.IcosahedronGeometry(1.35, 2)
-    const edges = new THREE.EdgesGeometry(base)
-    base.dispose()
-    return edges
-  }, [])
+
+  const logoTexture = useLoader(THREE.TextureLoader, "/images/img/AM.png")
 
   useEffect(() => {
-    return () => {
-      edgesGeometry.dispose()
-    }
-  }, [edgesGeometry])
+    if (!logoTexture) return
+    logoTexture.colorSpace = THREE.SRGBColorSpace
+    logoTexture.anisotropy = 8
+  }, [logoTexture])
 
   useFrame((state, delta) => {
     if (!groupRef.current || reduceMotion) return
 
     const elapsed = state.clock.elapsedTime
-    const baseRotationX = Math.sin(elapsed * 0.25) * 0.35
-    const baseRotationY = Math.cos(elapsed * 0.22) * 0.45
-    const hoverStrength = isHovered.current ? 0.55 : 0.2
+    const baseRotationX = Math.sin(elapsed * 0.25) * 0.18
+    const baseRotationY = Math.cos(elapsed * 0.22) * 0.25
+    const hoverStrength = isHovered.current ? 0.45 : 0.18
     const targetRotationX = baseRotationX + state.pointer.y * hoverStrength
     const targetRotationY = baseRotationY + state.pointer.x * hoverStrength
 
@@ -69,7 +66,26 @@ const WireframeOrb = ({ reduceMotion }) => {
       0.08 + delta * 0.3,
     )
 
-    groupRef.current.position.y = Math.sin(elapsed * 0.5) * 0.08
+    groupRef.current.rotation.z = THREE.MathUtils.lerp(
+      groupRef.current.rotation.z,
+      Math.sin(elapsed * 0.18) * 0.1,
+      0.05 + delta * 0.2,
+    )
+
+    groupRef.current.position.y = Math.sin(elapsed * 0.6) * 0.04
+
+    if (materialRef.current) {
+      materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
+        materialRef.current.emissiveIntensity,
+        isHovered.current ? 0.45 : 0.18,
+        0.12,
+      )
+      materialRef.current.opacity = THREE.MathUtils.lerp(
+        materialRef.current.opacity,
+        isHovered.current ? 1 : 0.92,
+        0.08,
+      )
+    }
   })
 
   return (
@@ -81,26 +97,35 @@ const WireframeOrb = ({ reduceMotion }) => {
       onPointerOut={() => {
         isHovered.current = false
       }}
+      onPointerMove={(event) => {
+        event.stopPropagation()
+        isHovered.current = true
+      }}
+      onPointerDown={() => {
+        isHovered.current = true
+      }}
+      onPointerUp={() => {
+        isHovered.current = false
+      }}
     >
       <mesh>
-        <icosahedronGeometry args={[1.18, 3]} />
+        <planeGeometry args={[2.3, 2.3, 1, 1]} />
         <meshStandardMaterial
-          color="#070d1b"
-          emissive="#38bdf8"
-          emissiveIntensity={0.25}
-          metalness={0.55}
-          roughness={0.35}
+          ref={materialRef}
+          map={logoTexture}
           transparent
-          opacity={0.45}
+          opacity={0.92}
+          roughness={0.35}
+          metalness={0.25}
+          emissive="#1d4ed8"
+          emissiveIntensity={0.18}
+          side={THREE.DoubleSide}
         />
       </mesh>
-      <lineSegments geometry={edgesGeometry}>
-        <lineBasicMaterial color="#38bdf8" transparent opacity={0.6} />
-      </lineSegments>
-      <points>
-        <icosahedronGeometry args={[1.28, 4]} />
-        <pointsMaterial color="#a855f7" size={0.035} sizeAttenuation transparent opacity={0.75} />
-      </points>
+      <mesh position={[0, 0, -0.02]}>
+        <planeGeometry args={[2.4, 2.4]} />
+        <meshBasicMaterial color="#0f172a" opacity={0.55} transparent />
+      </mesh>
     </group>
   )
 }
@@ -116,12 +141,14 @@ const Lights = () => (
 const Scene = ({ reduceMotion }) => (
   <>
     <Lights />
-    <WireframeOrb reduceMotion={reduceMotion} />
+    <LogoBillboard reduceMotion={reduceMotion} />
   </>
 )
 
 const CanvasFallback = () => (
-  <div className="absolute inset-0 bg-slate-200/70 dark:bg-slate-900/70" aria-hidden="true" />
+  <div className="absolute inset-0 flex items-center justify-center bg-slate-200/70 dark:bg-slate-900/70" aria-hidden="true">
+    <img src="/images/img/AM.png" alt="Alexandre Machado logo" className="h-3/4 w-auto drop-shadow-xl" />
+  </div>
 )
 
 const HeroCanvasInner = ({ reduceMotion }) => (
