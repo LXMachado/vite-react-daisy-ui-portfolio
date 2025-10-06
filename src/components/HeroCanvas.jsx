@@ -33,6 +33,7 @@ class CanvasErrorBoundary extends React.Component {
 
 const WireframeOrb = ({ reduceMotion }) => {
   const groupRef = React.useRef()
+  const isHovered = React.useRef(false)
   const edgesGeometry = useMemo(() => {
     const base = new THREE.IcosahedronGeometry(1.35, 2)
     const edges = new THREE.EdgesGeometry(base)
@@ -48,13 +49,39 @@ const WireframeOrb = ({ reduceMotion }) => {
 
   useFrame((state, delta) => {
     if (!groupRef.current || reduceMotion) return
-    groupRef.current.rotation.x += delta * 0.15
-    groupRef.current.rotation.y += delta * 0.25
-    groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.08
+
+    const elapsed = state.clock.elapsedTime
+    const baseRotationX = Math.sin(elapsed * 0.25) * 0.35
+    const baseRotationY = Math.cos(elapsed * 0.22) * 0.45
+    const hoverStrength = isHovered.current ? 0.55 : 0.2
+    const targetRotationX = baseRotationX + state.pointer.y * hoverStrength
+    const targetRotationY = baseRotationY + state.pointer.x * hoverStrength
+
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      targetRotationX,
+      0.08 + delta * 0.3,
+    )
+
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(
+      groupRef.current.rotation.y,
+      targetRotationY,
+      0.08 + delta * 0.3,
+    )
+
+    groupRef.current.position.y = Math.sin(elapsed * 0.5) * 0.08
   })
 
   return (
-    <group ref={groupRef}>
+    <group
+      ref={groupRef}
+      onPointerOver={() => {
+        isHovered.current = true
+      }}
+      onPointerOut={() => {
+        isHovered.current = false
+      }}
+    >
       <mesh>
         <icosahedronGeometry args={[1.18, 3]} />
         <meshStandardMaterial
@@ -78,13 +105,6 @@ const WireframeOrb = ({ reduceMotion }) => {
   )
 }
 
-const Backdrop = () => (
-  <mesh position={[0, 0, -3]}>
-    <planeGeometry args={[8, 8]} />
-    <meshBasicMaterial color="#020617" transparent opacity={0.7} />
-  </mesh>
-)
-
 const Lights = () => (
   <group>
     <ambientLight intensity={0.75} color="#93c5fd" />
@@ -95,20 +115,18 @@ const Lights = () => (
 
 const Scene = ({ reduceMotion }) => (
   <>
-    <color attach="background" args={["#020617"]} />
     <Lights />
-    <Backdrop />
     <WireframeOrb reduceMotion={reduceMotion} />
   </>
 )
 
 const CanvasFallback = () => (
-  <div className="absolute inset-0 rounded-[2.5rem] bg-slate-200/70 dark:bg-slate-900/70" aria-hidden="true" />
+  <div className="absolute inset-0 bg-slate-200/70 dark:bg-slate-900/70" aria-hidden="true" />
 )
 
 const HeroCanvasInner = ({ reduceMotion }) => (
   <Canvas
-    className="h-full w-full pointer-events-none"
+    className="h-full w-full"
     dpr={[1, 2]}
     camera={{ position: [0, 0, 5], fov: 48 }}
     gl={{ alpha: true, antialias: true }}

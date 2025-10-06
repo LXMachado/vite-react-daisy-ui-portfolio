@@ -120,9 +120,8 @@ const Hero = () => {
             className="order-2 flex w-full items-center justify-center lg:order-none"
             variants={imageVariants}
           >
-            <div className="relative aspect-square w-full max-w-sm overflow-hidden rounded-[2.5rem] border border-slate-200 bg-gradient-to-br from-slate-100 via-white to-slate-100 p-6 shadow-[0_40px_75px_-45px_rgba(15,23,42,0.55)] dark:border-white/10 dark:bg-gradient-to-br dark:from-slate-900/70 dark:via-slate-900/30 dark:to-slate-900/10 dark:shadow-xl dark:shadow-black/20 sm:max-w-md">
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-sky-500/15 via-cyan-500/10 to-indigo-500/15 opacity-70 dark:from-teal-500/20 dark:via-sky-500/10 dark:to-purple-500/20" aria-hidden="true" />
-              <Suspense fallback={<div className="absolute inset-0 rounded-[2.5rem] bg-slate-200/80 dark:bg-slate-900/60" aria-hidden="true" />}>
+            <div className="relative aspect-square w-full max-w-sm sm:max-w-md">
+              <Suspense fallback={<div className="absolute inset-0 bg-slate-200/80 dark:bg-slate-900/60" aria-hidden="true" />}>
                 <HeroCanvas reduceMotion={shouldReduceMotion} />
               </Suspense>
             </div>
