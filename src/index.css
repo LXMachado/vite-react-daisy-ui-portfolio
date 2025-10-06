@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    background-color: theme('colors.slate.50');
+  }
+
+  html.dark {
+    color-scheme: dark;
+    background-color: theme('colors.canvas');
+  }
+
+  body {
+    @apply min-h-screen bg-slate-50 text-slate-900 antialiased font-body text-[17px] leading-[1.7] transition-colors duration-300;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(14, 116, 144, 0.12), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.18), transparent 50%),
+      linear-gradient(135deg, rgba(2, 132, 199, 0.08), transparent 45%);
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    @apply bg-canvas text-ink;
+    background-image:
+      linear-gradient(135deg, rgba(56, 189, 248, 0.12), transparent 45%),
+      radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.15), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.18), transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(251, 191, 36, 0.15), transparent 55%);
+  }
+
+  ::selection {
+    @apply bg-accent/40 text-ink;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply relative px-4 py-16 sm:px-8 lg:px-16;
+  }
+
+  .section-header {
+    @apply mx-auto max-w-3xl text-center;
+  }
+
+  .section-title {
+    @apply text-3xl font-heading font-semibold tracking-tight text-slate-900 sm:text-[2.75rem] sm:leading-[1.1] lg:text-[3.25rem] lg:leading-tight dark:text-ink;
+  }
+
+  .section-subtitle {
+    @apply mt-4 text-base text-slate-600 leading-relaxed sm:text-lg dark:text-ink-muted/90;
+  }
+
+  .nav-shell {
+    @apply relative flex w-full max-w-5xl items-center justify-between rounded-full border border-slate-200 bg-white/80 px-5 py-3 shadow-[0_15px_45px_-25px_rgba(15,23,42,0.45)] backdrop-blur-lg transition duration-300 dark:border-surface-border dark:bg-surface/80 dark:shadow-inner-glow;
+  }
+
+  .nav-logo {
+    @apply h-12 w-12 rounded-3xl border border-slate-200 object-cover shadow-[0_12px_24px_-18px_rgba(15,23,42,0.35)] dark:border-surface-border dark:shadow-inner-glow;
+  }
+
+  .nav-toggle {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-transparent text-slate-600 transition hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-surface-border dark:text-ink;
+  }
+
+  .theme-toggle {
+    @apply inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white/70 text-slate-600 transition hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-surface-border dark:bg-surface/60 dark:text-ink;
+  }
+
+  .theme-toggle.is-dark {
+    @apply border-accent/40 bg-accent/15 text-white shadow-glow;
+  }
+
+  .theme-toggle-input {
+    @apply sr-only;
+  }
+
+  .theme-toggle-visual {
+    @apply pointer-events-none flex h-full w-full items-center justify-center;
+  }
+
+  .theme-toggle-input:focus-visible + .theme-toggle-visual {
+    @apply rounded-full ring-2 ring-accent/60 outline-none;
+  }
+
+  .theme-toggle-icon {
+    @apply h-5 w-5;
+  }
+
+  .nav-link {
+    @apply relative inline-flex items-center rounded-full px-5 py-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-ink/80 dark:hover:text-ink;
+  }
+
+  .nav-link.is-active {
+    @apply bg-accent/20 text-slate-900 shadow-[0_18px_35px_-22px_rgba(14,165,233,0.65)] dark:bg-accent/15 dark:text-ink dark:shadow-glow;
+  }
+
+  .mobile-menu {
+    @apply absolute left-1/2 top-full z-40 mt-4 flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 flex-col gap-2 rounded-3xl border border-slate-200 bg-white/95 p-4 shadow-[0_30px_55px_-30px_rgba(15,23,42,0.45)] backdrop-blur-xl dark:border-surface-border dark:bg-surface/95 dark:shadow-glow;
+  }
+
+  .mobile-link {
+    @apply block rounded-2xl px-4 py-3 text-base font-medium text-slate-600 transition hover:bg-accent/10 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-ink/80 dark:hover:text-ink;
+  }
+
+  .mobile-link.is-active {
+    @apply bg-accent/20 text-slate-900 dark:bg-accent/15 dark:text-ink;
+  }
+
+  .button-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-violet-500 to-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-[0_18px_45px_-18px_rgba(59,130,246,0.68)] transition hover:shadow-[0_18px_45px_-16px_rgba(59,130,246,0.78)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:from-accent dark:via-highlight dark:to-accent dark:text-canvas dark:shadow-glow dark:focus-visible:ring-offset-surface;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center gap-2 rounded-full border border-slate-300 bg-transparent px-8 py-3.5 text-base font-semibold text-slate-700 transition hover:border-sky-400 hover:bg-sky-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 dark:border-surface-border dark:text-ink dark:hover:border-accent dark:hover:bg-accent/10 dark:focus-visible:ring-accent/60;
+  }
+
+  .surface {
+    @apply rounded-4xl border border-slate-200 bg-white/85 p-8 shadow-[0_35px_65px_-40px_rgba(15,23,42,0.55)] backdrop-blur transition duration-300 dark:border-surface-border dark:bg-surface/80 dark:shadow-inner-glow;
+  }
+
+  .hero-kicker {
+    @apply inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-5 py-2 text-sm font-semibold uppercase tracking-[0.35em] text-slate-500 dark:border-surface-border dark:bg-surface-elevated/80 dark:text-ink-muted;
+  }
+
+  .hero-portrait {
+    @apply h-72 w-72 rounded-[3rem] border border-slate-200 object-cover shadow-[0_25px_60px_-40px_rgba(15,23,42,0.65)] lg:h-[22rem] lg:w-[22rem] dark:border-surface-border dark:shadow-glow;
+  }
+
+  .hero-portrait-ring {
+    @apply pointer-events-none absolute inset-0 -z-10 rounded-[3rem] border border-sky-300/40 animate-pulse-ring dark:border-accent/10;
+  }
+
+  .service-card {
+    @apply surface flex h-full cursor-pointer flex-col justify-between gap-6 border border-slate-200 transition hover:border-sky-300 hover:shadow-[0_40px_70px_-45px_rgba(15,23,42,0.65)] dark:border-surface-border/80 dark:hover:border-accent/60 dark:hover:shadow-glow;
+  }
+
+  .service-icon {
+    @apply flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white/80 text-sky-500 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.2)] transition duration-300 group-hover:border-sky-300 group-hover:text-sky-500 dark:border-surface-border dark:bg-surface-elevated/80 dark:text-accent dark:shadow-inner-glow dark:group-hover:border-accent/40 dark:group-hover:text-accent;
+  }
+
+  .service-cta {
+    @apply inline-flex items-center text-base font-medium text-sky-500 transition-transform duration-300 group-hover:translate-x-1 dark:text-accent;
+  }
+
+  .project-card {
+    @apply surface flex h-full flex-col items-center gap-6 text-center transition hover:-translate-y-1;
+  }
+
+  .project-image-ring {
+    @apply relative flex h-32 w-32 items-center justify-center rounded-full border border-slate-200 bg-slate-50 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.35)] dark:border-surface-border dark:bg-surface-elevated/80 dark:shadow-inner-glow;
+  }
+
+  .project-avatar {
+    @apply h-24 w-24 rounded-full border border-slate-200 object-cover shadow-[0_20px_45px_-28px_rgba(15,23,42,0.45)] dark:border-surface-border dark:shadow-glow;
+  }
+
+  .form-label {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-ink-muted;
+  }
+
+  .form-input {
+    @apply w-full rounded-3xl border border-slate-200 bg-white/80 px-5 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200 dark:border-surface-border dark:bg-surface-elevated/60 dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-accent dark:focus:ring-accent/60;
+  }
+
+  .form-textarea {
+    @apply min-h-[160px] w-full resize-none rounded-3xl border border-slate-200 bg-white/80 px-5 py-4 text-sm text-slate-900 placeholder:text-slate-400 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200 dark:border-surface-border dark:bg-surface-elevated/60 dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-accent dark:focus:ring-accent/60;
+  }
+
+  .social-link {
+    @apply inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-transparent text-slate-600 transition hover:border-sky-400 hover:text-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 dark:border-surface-border dark:text-ink dark:hover:border-accent dark:hover:text-accent dark:focus-visible:ring-accent/60;
+  }
+
+  .contact-detail {
+    @apply flex items-center gap-4 text-base leading-7 text-slate-700 dark:text-ink;
+  }
+
+  .contact-icon {
+    @apply flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white/80 text-sky-500 dark:border-surface-border dark:bg-surface-elevated/80 dark:text-accent;
+  }
+
+  .contact-text {
+    @apply text-base text-slate-800 sm:text-lg dark:text-ink;
+  }
+}

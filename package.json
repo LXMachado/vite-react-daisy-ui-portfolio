@@ -1,0 +1,28 @@
+{
+  "name": "alexandre-machado-portfolio",
+  "version": "1.1.0",
+  "type": "module",
+  "dependencies": {
+    "@react-three/fiber": "^8.15.11",
+    "framer-motion": "^11.1.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-theme": "^1.2.6",
+    "swiper": "^11.1.1",
+    "three": "^0.164.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "tailwindcss": "^3.4.3",
+    "vite": "^6.2.2"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
